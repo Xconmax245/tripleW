@@ -21,9 +21,7 @@ export default function WhatsAppButton({
   variant = "primary",
   className = "",
 }: WhatsAppButtonProps) {
-  const url = phone ? buildWhatsAppUrl(phone, productName, size, price) : "";
-
-  if (!phone) return null;
+  const url = buildWhatsAppUrl(phone, productName, size, price);
 
   if (variant === "floating") {
     return (

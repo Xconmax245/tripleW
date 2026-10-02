@@ -15,12 +15,12 @@ export default async function AdminLayout({
 
   return (
     <div className="min-h-screen bg-background font-body">
-      <header className="border-b border-border bg-surface px-6 py-4">
-        <div className="flex items-center justify-between max-w-6xl mx-auto">
+      <header className="border-b border-border bg-surface px-4 sm:px-6 py-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 max-w-6xl mx-auto">
           <Link href="/admin" className="font-display text-xl tracking-tight">
             Triple W Admin
           </Link>
-          <nav className="flex gap-6 text-sm font-medium">
+          <nav className="flex flex-wrap items-center gap-4 sm:gap-6 text-sm font-medium">
             <Link href="/admin/products" className="hover:text-muted transition-colors">
               Products
             </Link>

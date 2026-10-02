@@ -7,8 +7,9 @@ export function formatPrice(price: number): string {
 }
 
 export function getCleanWhatsAppNumber(phone: string | null | undefined): string {
-  if (!phone) return "";
-  let cleanPhone = phone.replace(/\D/g, "");
+  const defaultPhone = "2348026240235";
+  const rawPhone = phone || defaultPhone;
+  let cleanPhone = rawPhone.replace(/\D/g, "");
   if (cleanPhone.startsWith("0") && cleanPhone.length === 11) {
     cleanPhone = "234" + cleanPhone.substring(1);
   }
@@ -27,5 +28,5 @@ export function buildWhatsAppUrl(
   if (size) message += ` Size: ${size}.`;
   if (price) message += ` Price: ${formatPrice(price)}.`;
   
-  return `https://api.whatsapp.com/send/?phone=${cleanPhone}&text=${encodeURIComponent(message)}`;
+  return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
 }
