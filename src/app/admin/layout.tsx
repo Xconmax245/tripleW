@@ -27,8 +27,15 @@ export default async function AdminLayout({
             <Link href="/admin/settings" className="hover:text-muted transition-colors">
               Settings
             </Link>
-            <form action="/admin/login" method="POST">
-              <button type="submit" formAction="/admin/login" className="text-muted hover:text-foreground">
+            <form action={async () => {
+              "use server";
+              const { serverClient } = await import("@/lib/supabase");
+              const client = await serverClient();
+              await client.auth.signOut();
+              const { redirect } = await import("next/navigation");
+              redirect("/admin/login");
+            }}>
+              <button type="submit" className="text-muted hover:text-foreground">
                 Sign Out
               </button>
             </form>
