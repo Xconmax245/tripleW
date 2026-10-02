@@ -2,7 +2,9 @@ import { Metadata } from "next";
 import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
 import WhatsAppButton from "@/components/WhatsAppButton";
-import { getAllProducts, getSettings } from "@/lib/data";
+import { serverClient } from "@/lib/supabase";
+import { getProducts } from "@/lib/products";
+import { getSettings } from "@/lib/settings";
 
 export const metadata: Metadata = {
   title: "Shop All",
@@ -10,9 +12,10 @@ export const metadata: Metadata = {
     "Browse the full Triple W Boutique collection. Women's and men's fashion — order directly via WhatsApp.",
 };
 
-export default function ShopPage() {
-  const products = getAllProducts();
-  const settings = getSettings();
+export default async function ShopPage() {
+  const client = await serverClient();
+  const products = await getProducts(client);
+  const settings = await getSettings(client);
 
   return (
     <>
@@ -53,7 +56,7 @@ export default function ShopPage() {
         {products.length > 0 ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
             {products.map((product, i) => (
-              <ProductCard key={product.id} product={product} index={i} />
+              <ProductCard key={product.id} product={product} whatsappNumber={settings?.whatsapp_number || ""} index={i} />
             ))}
           </div>
         ) : (
@@ -62,7 +65,7 @@ export default function ShopPage() {
       </div>
 
       <WhatsAppButton
-        phone={settings.whatsapp_number}
+        phone={settings?.whatsapp_number || ""}
         productName="General Inquiry"
         variant="floating"
       />

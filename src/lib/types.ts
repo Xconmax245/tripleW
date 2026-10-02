@@ -1,61 +1,50 @@
-/* ─── Product ─── */
-export type Gender = "women" | "men" | "unisex";
+/**
+ * Triple W Boutique — shared types (directive §5 data contract, verbatim)
+ *
+ * ⚠️ BINDING: the frontend is built against these shapes. Any deviation is a
+ * breaking change to be flagged BEFORE the frontend is wired to real data.
+ */
 
-export interface Product {
+export type Gender = 'women' | 'men' | 'unisex';
+
+/**
+ * Display mode for a listing.
+ *
+ * - `full` (default): show name, description, price, sizes, images.
+ * - `enquire_only`: show NOTHING but a "want to know more? click the button
+ *   below" tag plus a WhatsApp button. Details are withheld deliberately —
+ *   the row still holds all its data, so toggling back to `full` restores it.
+ *
+ * The backend stores this as the boolean column `enquire_only`
+ * (`enquire_only: boolean`); this mapping is a frontend presentation concern.
+ */
+export type ProductDisplay = 'full' | 'enquire_only';
+
+export type Product = {
   id: string;
   slug: string;
   name: string;
-  description: string;
+  description: string | null;
   price: number;
   gender: Gender;
   category: string;
   sizes: string[] | null;
-  images: string[];
+  images: string[]; // ordered, first = cover
   available: boolean;
   is_featured: boolean;
   is_new: boolean;
+  /** Show only a WhatsApp enquiry CTA instead of product details (migration 0008). */
+  enquire_only: boolean;
   created_at: string;
   updated_at: string;
-}
+};
 
-/* ─── Settings (single-row) ─── */
-export interface SiteSettings {
-  id?: string;
-  boutique_name: string;
+export type Settings = {
+  boutique_name: string | null;
   whatsapp_number: string;
-  instagram_url: string;
+  instagram_url: string | null;
   phone: string | null;
   email: string | null;
   address: string | null;
   logo_url: string | null;
-}
-
-/* ─── Categories ─── */
-export const CATEGORIES: Record<Gender | "all", string[]> = {
-  women: ["Dresses", "Shoes", "Jeans", "Tops", "Other"],
-  men: ["T-Shirts", "Jeans", "Shoes", "Other"],
-  unisex: ["T-Shirts", "Jeans", "Shoes", "Other"],
-  all: ["Dresses", "Shoes", "Jeans", "Tops", "T-Shirts", "Other"],
 };
-
-/* ─── WhatsApp helper ─── */
-export function buildWhatsAppUrl(
-  phone: string,
-  productName: string,
-  size?: string,
-  price?: number
-): string {
-  const parts = [`Hi, I'd like to order the ${productName}`];
-  if (size) parts[0] += ` in Size ${size}`;
-  if (price != null) parts[0] += `. Price: ₦${price.toLocaleString()}`;
-  parts[0] += ".";
-  const encoded = encodeURIComponent(parts[0]);
-  // Strip everything except digits from phone
-  const cleanPhone = phone.replace(/\D/g, "");
-  return `https://wa.me/${cleanPhone}?text=${encoded}`;
-}
-
-/* ─── Price formatter ─── */
-export function formatPrice(amount: number): string {
-  return `₦${amount.toLocaleString("en-NG")}`;
-}

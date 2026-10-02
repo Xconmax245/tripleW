@@ -1,6 +1,6 @@
 "use client";
 
-import { buildWhatsAppUrl } from "@/lib/types";
+import { buildWhatsAppUrl } from "@/lib/utils";
 
 interface WhatsAppButtonProps {
   phone: string;
@@ -21,7 +21,9 @@ export default function WhatsAppButton({
   variant = "primary",
   className = "",
 }: WhatsAppButtonProps) {
-  const url = buildWhatsAppUrl(phone, productName, size, price);
+  const url = phone ? buildWhatsAppUrl(phone, productName, size, price) : "";
+
+  if (!phone) return null;
 
   if (variant === "floating") {
     return (
@@ -30,7 +32,7 @@ export default function WhatsAppButton({
         target="_blank"
         rel="noopener noreferrer"
         aria-disabled={disabled}
-        className={`fixed bottom-6 right-6 z-40 flex items-center gap-2.5 bg-whatsapp text-white px-5 py-3.5 rounded-full shadow-lg hover:bg-whatsapp-hover hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-200 text-sm font-medium ${
+        className={`fixed bottom-6 right-6 z-40 flex items-center gap-2.5 bg-whatsapp text-white pl-4 pr-5 py-3.5 rounded-full shadow-soft-lg hover:bg-whatsapp-hover hover:shadow-soft-xl hover:scale-110 active:scale-95 transition-all duration-300 text-sm font-medium btn-press ${
           disabled ? "opacity-40 pointer-events-none" : ""
         } ${className}`}
       >
@@ -46,7 +48,7 @@ export default function WhatsAppButton({
       target="_blank"
       rel="noopener noreferrer"
       aria-disabled={disabled}
-      className={`inline-flex items-center justify-center gap-3 w-full bg-whatsapp text-white px-8 py-4 rounded-none hover:bg-whatsapp-hover active:scale-[0.98] transition-all duration-200 text-sm font-medium uppercase tracking-wider ${
+      className={`inline-flex items-center justify-center gap-3 w-full bg-whatsapp text-white px-8 py-4.5 rounded-2xl hover:bg-whatsapp-hover hover:shadow-soft-lg hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 text-sm font-medium uppercase tracking-wider btn-press ${
         disabled
           ? "opacity-40 pointer-events-none cursor-not-allowed"
           : "cursor-pointer"
