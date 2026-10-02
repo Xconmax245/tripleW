@@ -103,9 +103,10 @@ export default async function EditProductPage({ params }: { params: Promise<{ id
             </select>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium mb-2">Sizes (comma separated)</label>
-            <input name="sizes" defaultValue={product.sizes?.join(", ")} placeholder="e.g. S, M, L, XL" className="w-full px-4 py-2 rounded-xl border border-border bg-surface focus:ring-2 focus:ring-foreground transition-all" />
+          <div className="col-span-2">
+            <label className="block text-sm font-medium mb-1">Sizes (Optional, comma separated)</label>
+            <p className="text-xs text-muted mb-2">Leave blank if the product has no size variations. You can enter clothing sizes (S, M, L), shoe sizes (38, 39, 40), etc.</p>
+            <input name="sizes" defaultValue={product.sizes?.join(", ")} placeholder="e.g. S, M, L, XL or 38, 39, 40" className="w-full px-4 py-2 rounded-xl border border-border bg-surface focus:ring-2 focus:ring-foreground transition-all" />
           </div>
 
           <div className="col-span-2">
