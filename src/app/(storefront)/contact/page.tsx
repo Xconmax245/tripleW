@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { serverClient } from "@/lib/supabase";
 import { getSettings } from "@/lib/settings";
+import { getCleanWhatsAppNumber } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
 export default async function ContactPage() {
   const client = await serverClient();
   const settings = await getSettings(client);
-  const cleanPhone = settings?.whatsapp_number?.replace(/\D/g, "") || "";
+  const cleanPhone = getCleanWhatsAppNumber(settings?.whatsapp_number);
 
   return (
     <>

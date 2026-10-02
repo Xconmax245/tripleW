@@ -42,6 +42,7 @@ export default function Header() {
         {/* Desktop nav */}
         <ul className="hidden md:flex items-center gap-8 text-sm tracking-wide uppercase">
           {[
+            { href: "/", label: "Home" },
             { href: "/shop", label: "Shop" },
             { href: "/shop/women", label: "Women" },
             { href: "/shop/men", label: "Men" },
@@ -97,6 +98,7 @@ export default function Header() {
         <div className="bg-background/95 backdrop-blur-xl border-t border-border/40">
           <ul className="flex flex-col py-6 px-5 gap-1">
             {[
+              { href: "/", label: "Home" },
               { href: "/shop", label: "Shop All" },
               { href: "/shop/women", label: "Women" },
               { href: "/shop/men", label: "Men" },

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import { getCleanWhatsAppNumber } from "@/lib/utils";
 import { serverClient } from "@/lib/supabase";
 import { getNewProducts } from "@/lib/products";
 import { getSettings } from "@/lib/settings";
@@ -33,16 +34,7 @@ export default async function HomePage() {
 
         {/* Hero content — asymmetric editorial positioning */}
         <div className="absolute inset-0 flex flex-col justify-end max-w-7xl mx-auto w-full px-5 sm:px-10 lg:px-16 pb-20 sm:pb-28 lg:pb-32">
-          {/* Eyebrow */}
-          <div
-            data-aos="fade-up"
-            data-aos-delay="0"
-            className="mb-4 sm:mb-6"
-          >
-            <span className="tag-pill bg-white/15 text-white/90 backdrop-blur-sm border border-white/10">
-              New Collection 2026
-            </span>
-          </div>
+          {/* Eyebrow removed as requested */}
 
           {/* Main heading — large editorial serif */}
           <h1
@@ -96,13 +88,7 @@ export default async function HomePage() {
           </div>
         </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/40">
-          <span className="text-[10px] uppercase tracking-[0.3em] font-body">
-            Scroll
-          </span>
-          <div className="w-px h-8 bg-gradient-to-b from-white/40 to-transparent animate-pulse" />
-        </div>
+        {/* Scroll indicator removed as requested */}
       </section>
 
       {/* ─── Marquee Ticker ─── */}
@@ -112,8 +98,6 @@ export default async function HomePage() {
             <div key={i} className="flex items-center gap-8 pr-8">
               {[
                 "New Arrivals",
-                "✦",
-                "Free Delivery in Lagos",
                 "✦",
                 "Order via WhatsApp",
                 "✦",
@@ -399,7 +383,7 @@ export default async function HomePage() {
               name and size to place your order. It&apos;s that simple.
             </p>
             <a
-              href={`https://wa.me/${settings?.whatsapp_number?.replace(/\D/g, "") || ""}`}
+              href={`https://wa.me/${getCleanWhatsAppNumber(settings?.whatsapp_number)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 bg-whatsapp text-white px-10 py-4.5 rounded-full text-sm font-medium uppercase tracking-wider hover:bg-whatsapp-hover hover:scale-105 hover:shadow-soft-xl active:scale-95 transition-all duration-300 btn-press"

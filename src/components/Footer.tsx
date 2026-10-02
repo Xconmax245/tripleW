@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { serverClient } from "@/lib/supabase";
 import { getSettings } from "@/lib/settings";
+import { getCleanWhatsAppNumber } from "@/lib/utils";
 
 const currentYear = new Date().getFullYear();
 
@@ -13,7 +14,7 @@ export default async function Footer() {
     // Fail gracefully if backend is not wired
   }
 
-  const waUrl = settings?.whatsapp_number ? `https://wa.me/${settings.whatsapp_number}` : "#";
+  const waUrl = settings?.whatsapp_number ? `https://wa.me/${getCleanWhatsAppNumber(settings.whatsapp_number)}` : "#";
   const igUrl = settings?.instagram_url || "https://instagram.com/triplewboutique";
 
   return (
