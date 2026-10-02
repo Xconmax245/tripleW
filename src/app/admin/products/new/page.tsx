@@ -4,6 +4,7 @@ import { createProduct, updateProduct } from "@/lib/products";
 import { uploadProductImage } from "@/lib/storage";
 import { CATEGORIES, ALL_CATEGORIES } from "@/lib/categories";
 import { revalidatePath } from "next/cache";
+import { SubmitButton } from "@/components/SubmitButton";
 
 export default async function NewProductPage() {
   async function createProductAction(formData: FormData) {
@@ -101,7 +102,7 @@ export default async function NewProductPage() {
 
           <div className="col-span-2">
             <label className="block text-sm font-medium mb-2">Images (First is cover)</label>
-            <input type="file" name="images" multiple accept="image/jpeg,image/png,image/webp,image/avif" className="w-full px-4 py-2 rounded-xl border border-border bg-surface" />
+            <input type="file" name="images" required multiple accept="image/jpeg,image/png,image/webp,image/avif" className="w-full px-4 py-2 rounded-xl border border-border bg-surface" />
           </div>
 
           <div className="col-span-2 flex gap-6">
@@ -120,9 +121,11 @@ export default async function NewProductPage() {
           <a href="/admin/products" className="px-6 py-2.5 rounded-xl text-sm font-medium hover:bg-surface transition-colors">
             Cancel
           </a>
-          <button type="submit" className="bg-foreground text-background px-6 py-2.5 rounded-xl text-sm font-medium hover:bg-foreground/90 transition-colors">
-            Create Product
-          </button>
+          <SubmitButton 
+            defaultText="Create Product" 
+            pendingText="Creating..." 
+            className="bg-foreground text-background px-6 py-2.5 rounded-xl text-sm font-medium hover:bg-foreground/90 transition-colors" 
+          />
         </div>
       </form>
     </div>

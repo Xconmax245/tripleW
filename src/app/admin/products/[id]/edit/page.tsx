@@ -4,6 +4,7 @@ import { getProductBySlug, updateProduct, getAllProductsAdmin } from "@/lib/prod
 import { uploadProductImage } from "@/lib/storage";
 import { CATEGORIES, ALL_CATEGORIES } from "@/lib/categories";
 import { revalidatePath } from "next/cache";
+import { SubmitButton } from "@/components/SubmitButton";
 
 export default async function EditProductPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -137,9 +138,11 @@ export default async function EditProductPage({ params }: { params: Promise<{ id
           <a href="/admin/products" className="px-6 py-2.5 rounded-xl text-sm font-medium hover:bg-surface transition-colors">
             Cancel
           </a>
-          <button type="submit" className="bg-foreground text-background px-6 py-2.5 rounded-xl text-sm font-medium hover:bg-foreground/90 transition-colors">
-            Save Changes
-          </button>
+          <SubmitButton 
+            defaultText="Save Changes" 
+            pendingText="Saving..." 
+            className="bg-foreground text-background px-6 py-2.5 rounded-xl text-sm font-medium hover:bg-foreground/90 transition-colors" 
+          />
         </div>
       </form>
     </div>
